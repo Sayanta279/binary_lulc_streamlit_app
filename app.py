@@ -1,4 +1,3 @@
-
 import streamlit as st
 import os
 import re
@@ -79,7 +78,7 @@ if input_files and len(input_files) == 2:
 
     input_tensor2, original_shape, img2, profile = preprocess_tiff(path2)
 
-    year = st.number_input("Enter Target Year for Prediction (e.g., 2030)", min_value=2024, max_value=2100, value=2030)
+    year = st.number_input("Enter Target Year for Prediction (e.g., 2030)", min_value=2023, max_value=2100, value=2030)
 
     if st.button("Run Prediction"):
         prediction = predict_image(model, input_tensor2)
