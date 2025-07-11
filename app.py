@@ -1,3 +1,4 @@
+
 import streamlit as st
 import os
 import re
@@ -7,6 +8,7 @@ import tensorflow as tf
 import cv2
 import matplotlib.pyplot as plt
 from tempfile import NamedTemporaryFile
+from matplotlib.colors import ListedColormap
 
 st.set_page_config(page_title="Future Prediction Urban Expansion", layout="wide")
 st.title("Urban Built-up Prediction Web App")
@@ -48,10 +50,10 @@ def save_as_tif(array, profile, output_path, dtype=rasterio.uint8):
         dst.write(array.astype(dtype), 1)
 
 def visualize_results(input2, predicted, binary):
-    cmap_binary = plt.cm.get_cmap('tab10', 2)
+    cmap_red_white = ListedColormap(["white", "red"])
     fig, axs = plt.subplots(1, 3, figsize=(20, 6))
 
-    axs[0].imshow(input2, cmap='gray')
+    axs[0].imshow(input2, cmap='gray', vmin=0, vmax=1)
     axs[0].set_title("Input TIFF")
     axs[0].axis('off')
 
@@ -60,7 +62,7 @@ def visualize_results(input2, predicted, binary):
     axs[1].axis('off')
     fig.colorbar(im2, ax=axs[1], fraction=0.046, pad=0.04)
 
-    im3 = axs[2].imshow(binary, cmap=cmap_binary, vmin=0, vmax=1)
+    im3 = axs[2].imshow(binary, cmap=cmap_red_white, vmin=0, vmax=1)
     axs[2].set_title("Binary Classification")
     axs[2].axis('off')
     cbar = fig.colorbar(im3, ax=axs[2], ticks=[0, 1], fraction=0.046, pad=0.04)
