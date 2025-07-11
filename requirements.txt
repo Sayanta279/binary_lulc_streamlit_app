@@ -1,0 +1,6 @@
+streamlit
+numpy
+tensorflow
+rasterio
+opencv-python
+matplotlib
